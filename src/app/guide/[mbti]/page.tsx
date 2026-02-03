@@ -86,10 +86,7 @@ export default async function GuidePage({ params, searchParams }: PageProps) {
             </section>
 
             <div className={styles.actions}>
-                <Link href="/chat" className="btn-primary">
-                    비공개 채팅 상담하기 (5회 무료)
-                </Link>
-                <Link href="/" className={styles.backLink}>
+                <Link href="/" className="btn-primary">
                     다른 MBTI 확인하기
                 </Link>
             </div>
