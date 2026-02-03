@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "TypeBridge | MBTI 연애 가이드",
     description: "MBTI 기반 맞춤 연애 가이드 및 AI 채팅 상담 서비스",
-    url: "https://typebridge.vercel.app",
+    url: "https://type-bridge.vercel.app",
     siteName: "TypeBridge",
     locale: "ko_KR",
     type: "website",
