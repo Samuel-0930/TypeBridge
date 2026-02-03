@@ -12,9 +12,10 @@ export default async function GuidePage({ params, searchParams }: PageProps) {
     const { mbti } = await params;
     const { gender } = await searchParams;
 
-    const guide = mbtiData.find((item) => item.mbti.toUpperCase() === mbti.toUpperCase());
+    const mbtiUpper = mbti.toUpperCase();
+    const typeData = (mbtiData as any)[mbtiUpper];
 
-    if (!guide) {
+    if (!typeData) {
         return (
             <main className={styles.container}>
                 <div className="glass-card" style={{ padding: '40px', textAlign: 'center' }}>
@@ -28,18 +29,22 @@ export default async function GuidePage({ params, searchParams }: PageProps) {
         );
     }
 
+    // Determine gender content (default to female if not specified)
+    const selectedGender = (gender === "male" || gender === "female") ? gender : "female";
+    const guide = typeData[selectedGender];
+
     return (
         <main className={styles.container}>
             <header className={styles.header}>
-                <h1 className="gradient-text">{guide.mbti} 연애 가이드</h1>
-                <p className={styles.subtitle}>{guide.name}를 위한 맞춤 조언</p>
+                <h1 className="gradient-text">{mbtiUpper} {selectedGender === "male" ? "남성" : "여성"} 연애 가이드</h1>
+                <p className={styles.subtitle}>{typeData.name}를 위한 맞춤 조언</p>
             </header>
 
             <section className={styles.content}>
                 <div className={`${styles.card} glass-card`}>
                     <h3>✨ 매력 포인트</h3>
                     <ul>
-                        {guide.attraction_points.map((point, i) => (
+                        {guide.attraction_points.map((point: string, i: number) => (
                             <li key={i}>{point}</li>
                         ))}
                     </ul>
@@ -48,7 +53,7 @@ export default async function GuidePage({ params, searchParams }: PageProps) {
                 <div className={`${styles.card} glass-card`}>
                     <h3>💡 공략 방법</h3>
                     <ul>
-                        {guide.how_to_approach.map((tip, i) => (
+                        {guide.how_to_approach.map((tip: string, i: number) => (
                             <li key={i}>{tip}</li>
                         ))}
                     </ul>
