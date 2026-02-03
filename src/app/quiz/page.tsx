@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useState, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import styles from "./quiz.module.css";
 
 const questions = [
@@ -39,8 +39,11 @@ const questions = [
     },
 ];
 
-export default function QuizPage() {
+function QuizPageContent() {
     const router = useRouter();
+    const searchParams = useSearchParams();
+    const type = searchParams.get("type") || "user"; // "user" or "target"
+
     const [currentStep, setCurrentStep] = useState(0);
     const [results, setResults] = useState<string[]>([]);
     const [mbti, setMbti] = useState<string | null>(null);
@@ -57,9 +60,10 @@ export default function QuizPage() {
         }
     };
 
-    const goToGuide = () => {
+    const goToHome = () => {
         if (mbti) {
-            router.push(`/?myMbti=${mbti}`);
+            const param = type === "target" ? `targetMbti=${mbti}` : `myMbti=${mbti}`;
+            router.push(`/?${param}`);
         }
     };
 
@@ -67,12 +71,18 @@ export default function QuizPage() {
         return (
             <main className={styles.container}>
                 <div className={`${styles.resultCard} glass-card`}>
-                    <h2 className="gradient-text">나의 MBTI 결과</h2>
+                    <h2 className="gradient-text">
+                        {type === "target" ? "그 사람의 예상 MBTI" : "나의 MBTI 결과"}
+                    </h2>
                     <div className={`${styles.mbtiResult} gradient-text`}>{mbti}</div>
-                    <p>당신의 연애 매력을 가장 잘 살려줄 가이드를 확인해보세요!</p>
+                    <p>
+                        {type === "target"
+                            ? "분석된 MBTI를 바탕으로 공략법을 확인해보세요!"
+                            : "당신의 연애 매력을 가장 잘 살려줄 가이드를 확인해보세요!"}
+                    </p>
                     <div className={styles.actions}>
-                        <button className="btn-primary" onClick={goToGuide}>
-                            시너지 가이드 보러 가기
+                        <button className="btn-primary" onClick={goToHome}>
+                            {type === "target" ? "공략법 보러 가기" : "시너지 가이드 보러 가기"}
                         </button>
                         <button className="btn-secondary" onClick={() => window.location.reload()}>
                             다시 테스트하기
@@ -88,7 +98,9 @@ export default function QuizPage() {
     return (
         <main className={styles.container}>
             <header className={styles.header}>
-                <h1 className="gradient-text">나의 MBTI 찾기</h1>
+                <h1 className="gradient-text">
+                    {type === "target" ? "그 사람 MBTI 유추하기" : "나의 MBTI 찾기"}
+                </h1>
                 <div className={styles.progress}>
                     <div
                         className={styles.progressBar}
@@ -98,7 +110,9 @@ export default function QuizPage() {
             </header>
 
             <section className={styles.quizContent}>
-                <p className={styles.question}>{questions[currentStep].question}</p>
+                <p className={styles.question}>
+                    {type === "target" ? "그 사람은" : ""} {questions[currentStep].question}
+                </p>
                 <div className={styles.options}>
                     {questions[currentStep].options.map((option, i) => (
                         <button
@@ -112,5 +126,13 @@ export default function QuizPage() {
                 </div>
             </section>
         </main>
+    );
+}
+
+export default function QuizPage() {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <QuizPageContent />
+        </Suspense>
     );
 }
