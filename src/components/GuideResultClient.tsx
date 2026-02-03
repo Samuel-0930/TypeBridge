@@ -31,17 +31,18 @@ export default function GuideResultClient({
         try {
             setIsExporting(true);
 
-            // Wait a bit for potential rendering
-            await new Promise((resolve) => setTimeout(resolve, 100));
+            // Allow state update to propagate and CSS classes to apply
+            await new Promise((resolve) => setTimeout(resolve, 300));
 
             const dataUrl = await htmlToImage.toPng(cardRef.current, {
                 quality: 1,
-                pixelRatio: 2, // Higher resolution
-                backgroundColor: "#f8f0ff", // Solid background to avoid transparency issues
+                pixelRatio: 3, // Even higher resolution for premium feel
+                backgroundColor: "#f8f0ff",
+                // Skip filtering styles as we want the specialized 'isExporting' styles to apply
             });
 
             const link = document.createElement("a");
-            link.download = `TypeBridge_${mbtiUpper}_Guide.png`;
+            link.download = `TypeBridge_${mbtiUpper}_Story.png`;
             link.href = dataUrl;
             link.click();
         } catch (error) {
@@ -53,8 +54,11 @@ export default function GuideResultClient({
     };
 
     return (
-        <>
-            <div ref={cardRef} className={styles.captureArea}>
+        <div className={styles.guideWrapper}>
+            <div
+                ref={cardRef}
+                className={`${styles.captureArea} ${isExporting ? styles.isExporting : ""}`}
+            >
                 <div className={styles.exportHeader}>
                     <span className={styles.brand}>TypeBridge</span>
                     <span className={styles.tagline}>상대방의 MBTI로 읽는 연애 전략</span>
@@ -120,12 +124,12 @@ export default function GuideResultClient({
                     disabled={isExporting}
                     style={{ background: 'linear-gradient(135deg, #6e8efb, #a777e3)', width: 'auto', padding: '12px 24px' }}
                 >
-                    {isExporting ? "이미지 생성 중..." : "📸 공략법 이미지로 저장하기"}
+                    {isExporting ? "이미지 생성 중..." : "📸 결과 이미지 저장"}
                 </button>
                 <Link href="/" className={styles.backLink}>
                     다른 MBTI 확인하기
                 </Link>
             </div>
-        </>
+        </div>
     );
 }
