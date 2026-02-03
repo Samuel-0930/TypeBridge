@@ -99,6 +99,56 @@
     margin-top: 10px;
 }
 
+.captureArea {
+    padding: 40px;
+    background: #f8f0ff;
+    /* Solid light purple background for export */
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.exportHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    border-bottom: 2px solid rgba(110, 142, 251, 0.2);
+    margin-bottom: 10px;
+}
+
+.brand {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--primary);
+    letter-spacing: -0.02em;
+}
+
+.tagline {
+    font-size: 0.85rem;
+    opacity: 0.6;
+    color: var(--foreground);
+}
+
+.exportFooter {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid rgba(110, 142, 251, 0.1);
+    font-size: 0.8rem;
+    opacity: 0.5;
+    color: var(--foreground);
+}
+
+/* On the web page, we don't need to show the export header/footer as they are for the PNG */
+@media screen {
+
+    .exportHeader,
+    .exportFooter {
+        display: none;
+    }
+}
+
 .backLink {
     opacity: 0.6;
     transition: opacity 0.2s;
