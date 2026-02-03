@@ -52,6 +52,7 @@ button {
   border: none;
   background: none;
   font-family: inherit;
+  color: inherit;
 }
 
 .glass-card {

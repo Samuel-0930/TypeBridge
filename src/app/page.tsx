@@ -22,7 +22,7 @@ export default function Home() {
       <section className={styles.hero}>
         <h1 className="gradient-text">TypeBridge</h1>
         <p className={styles.subtitle}>
-          상대방의 MBTI를 통해 더 깊은 관계를 만들어보세요.
+          그 사람의 속마음, MBTI로 꿰뚫어보기 💘
         </p>
       </section>
 
