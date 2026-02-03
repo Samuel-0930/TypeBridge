@@ -1,7 +1,6 @@
-# TypeBridge 💖
-> **상대방의 MBTI로 읽는 호감도 분석 & AI 연애 전략 가이드**
+# TypeBridge (타입브릿지)
 
-TypeBridge는 현대인의 필수 데이터인 MBTI를 활용하여 상대방의 심리를 분석하고, 더 깊은 관계를 맺을 수 있도록 실질적인 연애 전략을 제안하는 웹 서비스입니다. 
+MBTI 기반의 맞춤형 연애 가이드 서비스입니다. 상대방의 MBTI와 나의 MBTI를 분석하여 최적의 관계 전략을 제안합니다.
 
 [**Live Demo 바로가기**](https://type-bridge.vercel.app/)
 
@@ -11,8 +10,6 @@ TypeBridge는 현대인의 필수 데이터인 MBTI를 활용하여 상대방의
 단순한 MBTI 특징 나열을 넘어, 타겟팅된 이성과의 소통을 돕기 위해 기획되었습니다. 사용자는 상대방의 정보를 입력하고 맞춤형 가이드와 AI 상담을 통해 전문적인 연애 솔루션을 경험할 수 있습니다.
 
 ![TypeBridge Preview](https://type-bridge.vercel.app/og-image.png) *(배포된 사이트의 랜딩 페이지 이미지)*
-
-## ✨ Key Features
 
 ### 1️⃣ MBTI 기반 맞춤형 가이드
 - **심층 분석 데이터**: 16가지 성격 유형별 '매력 포인트', '접근 전략', '주의사항' 제공
