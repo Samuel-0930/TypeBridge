@@ -59,7 +59,68 @@ export default function GuideResultClient({
         }
     };
 
-    const GuideContent = ({ isForExport = false }: { isForExport?: boolean }) => (
+    return (
+        <div className={styles.guideWrapper}>
+            {/* Hidden capture area (Off-screen) */}
+            <div ref={exportRef} className={styles.captureHidden}>
+                <GuideContent
+                    mbtiUpper={mbtiUpper}
+                    typeData={typeData}
+                    guide={guide}
+                    userTypeData={userTypeData}
+                    userMbtiUpper={userMbtiUpper}
+                    selectedGender={selectedGender}
+                    isForExport={true}
+                />
+            </div>
+
+            {/* Visible UI */}
+            <div className={styles.captureArea}>
+                <GuideContent
+                    mbtiUpper={mbtiUpper}
+                    typeData={typeData}
+                    guide={guide}
+                    userTypeData={userTypeData}
+                    userMbtiUpper={userMbtiUpper}
+                    selectedGender={selectedGender}
+                />
+            </div>
+
+            <div className={styles.actions}>
+                <button
+                    className="btn-primary"
+                    onClick={handleExport}
+                    disabled={isExporting}
+                    style={{ background: 'linear-gradient(135deg, #6e8efb, #a777e3)', width: 'auto', padding: '12px 24px' }}
+                >
+                    {isExporting ? "이미지 생성 중..." : "📸 결과 이미지 저장"}
+                </button>
+                <Link href="/" className={styles.backLink}>
+                    다른 MBTI 확인하기
+                </Link>
+            </div>
+        </div>
+    );
+}
+
+function GuideContent({
+    mbtiUpper,
+    typeData,
+    guide,
+    userTypeData,
+    userMbtiUpper,
+    selectedGender,
+    isForExport = false
+}: {
+    mbtiUpper: string;
+    typeData: any;
+    guide: any;
+    userTypeData: any;
+    userMbtiUpper?: string;
+    selectedGender: string;
+    isForExport?: boolean;
+}) {
+    return (
         <>
             <div className={styles.exportHeader}>
                 <span className={styles.brand}>TypeBridge</span>
@@ -76,7 +137,7 @@ export default function GuideResultClient({
 
             <section className={styles.content}>
                 {userTypeData && (
-                    <div className={`${styles.card} glass-card animate-slide-up animate-delay-100`} style={{ border: '2px solid var(--primary)' }}>
+                    <div className={`${styles.card} glass-card animate-slide-up animate-delay-100`}>
                         <h3>✨ 나의 {userMbtiUpper} 강점 활용하기</h3>
                         <ul>
                             {userTypeData.user_strengths.map((strength: string, i: number) => (
@@ -118,33 +179,5 @@ export default function GuideResultClient({
                 <p>https://type-bridge.vercel.app</p>
             </div>
         </>
-    );
-
-    return (
-        <div className={styles.guideWrapper}>
-            {/* Hidden capture area (Off-screen) */}
-            <div ref={exportRef} className={styles.captureHidden}>
-                <GuideContent isForExport={true} />
-            </div>
-
-            {/* Visible UI */}
-            <div className={styles.captureArea}>
-                <GuideContent />
-            </div>
-
-            <div className={styles.actions}>
-                <button
-                    className="btn-primary"
-                    onClick={handleExport}
-                    disabled={isExporting}
-                    style={{ background: 'linear-gradient(135deg, #6e8efb, #a777e3)', width: 'auto', padding: '12px 24px' }}
-                >
-                    {isExporting ? "이미지 생성 중..." : "📸 결과 이미지 저장"}
-                </button>
-                <Link href="/" className={styles.backLink}>
-                    다른 MBTI 확인하기
-                </Link>
-            </div>
-        </div>
     );
 }
