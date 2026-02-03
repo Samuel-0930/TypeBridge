@@ -63,9 +63,25 @@ function QuizPageContent() {
 
     const goToHome = () => {
         if (mbti) {
-            const param = type === "target" ? `targetMbti=${mbti}` : `myMbti=${mbti}`;
-            const genderParam = gender ? `&gender=${gender}` : "";
-            router.push(`/?${param}${genderParam}`);
+            const searchParamsObj = new URLSearchParams();
+
+            // Add current quiz result
+            if (type === "target") {
+                searchParamsObj.set("targetMbti", mbti);
+            } else {
+                searchParamsObj.set("myMbti", mbti);
+            }
+
+            // Carry over existing context
+            if (gender) searchParamsObj.set("gender", gender);
+
+            // If we are in 'user' quiz, we must have come from step 1, so keep the target MBTI
+            const existingTargetMbti = searchParams.get("targetMbti");
+            if (existingTargetMbti) {
+                searchParamsObj.set("targetMbti", existingTargetMbti);
+            }
+
+            router.push(`/?${searchParamsObj.toString()}`);
         }
     };
 
