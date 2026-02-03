@@ -36,13 +36,16 @@ export default async function GuidePage({ params, searchParams }: PageProps) {
     return (
         <main className={styles.container}>
             <header className={styles.header}>
-                <h1 className="gradient-text">{mbtiUpper} {selectedGender === "male" ? "남성" : "여성"} 연애 가이드</h1>
+                <h1 className="gradient-text">{mbtiUpper} 연애 가이드</h1>
                 <p className={styles.subtitle}>{typeData.name}를 위한 맞춤 조언</p>
+                <div className={styles.genderBadge}>
+                    {selectedGender === "male" ? "♂ 남성 타겟" : "♀ 여성 타겟"}
+                </div>
             </header>
 
             <section className={styles.content}>
                 <div className={`${styles.card} glass-card`}>
-                    <h3>✨ 매력 포인트</h3>
+                    <h3>✨ 상대방의 매력 (이런 점에 끌려요)</h3>
                     <ul>
                         {guide.attraction_points.map((point: string, i: number) => (
                             <li key={i}>{point}</li>
