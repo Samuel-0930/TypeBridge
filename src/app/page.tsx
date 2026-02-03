@@ -41,7 +41,7 @@ export default function Home() {
         <p className={styles.subtitle}>
           {step === 1
             ? "그 사람의 속마음, MBTI로 꿰뚫어보기 💘"
-            : "나의 MBTI도 알려주세요! 더 정확한 공략법을 드릴게요. ✨"}
+            : "나의 MBTI도 알려주세요! 더 정확한 공략법을 드릴게요 ✨"}
         </p>
       </section>
 
@@ -67,17 +67,17 @@ export default function Home() {
             />
             <div className={styles.buttonGroup}>
               <button
-                className={styles.backButton}
-                onClick={() => setStep(1)}
-              >
-                이전으로
-              </button>
-              <button
                 className={`btn-primary ${styles.cta}`}
                 disabled={!userMbti}
                 onClick={handleStart}
               >
                 매칭 가이드 받기
+              </button>
+              <button
+                className={styles.backButton}
+                onClick={() => setStep(1)}
+              >
+                이전으로
               </button>
             </div>
           </>

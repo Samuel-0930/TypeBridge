@@ -49,9 +49,6 @@ export default async function GuidePage({ params, searchParams }: PageProps) {
                 {userTypeData && (
                     <div className={`${styles.card} glass-card`} style={{ border: '2px solid var(--primary)' }}>
                         <h3>✨ 나의 {userMbtiUpper} 강점 활용하기</h3>
-                        <p style={{ marginBottom: '10px', fontSize: '1rem', opacity: 0.8 }}>
-                            당신의 {userMbtiUpper} 매력을 살려 {mbtiUpper}의 마음을 사로잡는 법:
-                        </p>
                         <ul>
                             {userTypeData.user_strengths.map((strength: string, i: number) => (
                                 <li key={i}>{strength}</li>
@@ -80,7 +77,11 @@ export default async function GuidePage({ params, searchParams }: PageProps) {
 
                 <div className={`${styles.card} glass-card ${styles.warningCard}`}>
                     <h3>⚠️ 주의할 점</h3>
-                    <p>{guide.warning}</p>
+                    <ul>
+                        {guide.warning.map((item: string, i: number) => (
+                            <li key={i}>{item}</li>
+                        ))}
+                    </ul>
                 </div>
             </section>
 
