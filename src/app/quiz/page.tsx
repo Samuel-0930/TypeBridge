@@ -43,6 +43,7 @@ function QuizPageContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const type = searchParams.get("type") || "user"; // "user" or "target"
+    const gender = searchParams.get("gender");
 
     const [currentStep, setCurrentStep] = useState(0);
     const [results, setResults] = useState<string[]>([]);
@@ -63,7 +64,8 @@ function QuizPageContent() {
     const goToHome = () => {
         if (mbti) {
             const param = type === "target" ? `targetMbti=${mbti}` : `myMbti=${mbti}`;
-            router.push(`/?${param}`);
+            const genderParam = gender ? `&gender=${gender}` : "";
+            router.push(`/?${param}${genderParam}`);
         }
     };
 
@@ -95,6 +97,16 @@ function QuizPageContent() {
 
     const progress = ((currentStep + 1) / questions.length) * 100;
 
+    // Helper to make question text natural
+    const getQuestionText = () => {
+        const baseQuestion = questions[currentStep].question;
+        if (type === "target") {
+            // Replace "나는" with "그 사람은" and adjust if needed
+            return baseQuestion.replace("나는", "그 사람은");
+        }
+        return baseQuestion;
+    };
+
     return (
         <main className={styles.container}>
             <header className={styles.header}>
@@ -111,7 +123,7 @@ function QuizPageContent() {
 
             <section className={styles.quizContent}>
                 <p className={styles.question}>
-                    {type === "target" ? "그 사람은" : ""} {questions[currentStep].question}
+                    {getQuestionText()}
                 </p>
                 <div className={styles.options}>
                     {questions[currentStep].options.map((option, i) => (

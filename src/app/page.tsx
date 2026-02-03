@@ -13,9 +13,10 @@ function HomeContent() {
   const searchParams = useSearchParams();
   const myMbtiResult = searchParams.get("myMbti");
   const targetMbtiResult = searchParams.get("targetMbti");
+  const genderParam = searchParams.get("gender");
 
   const [step, setStep] = useState(myMbtiResult ? 2 : 1);
-  const [targetGender, setTargetGender] = useState<string | null>(null);
+  const [targetGender, setTargetGender] = useState<string | null>(genderParam || null);
   const [targetMbti, setTargetMbti] = useState<string | null>(targetMbtiResult?.toUpperCase() || null);
   const [userMbti, setUserMbti] = useState<string | null>(myMbtiResult?.toUpperCase() || null);
 
@@ -54,14 +55,15 @@ function HomeContent() {
           <>
             <GenderSelector selected={targetGender} onSelect={setTargetGender} />
             <MBTISelector selected={targetMbti} onSelect={setTargetMbti} />
-            {!targetMbtiResult && (
-              <p style={{ marginTop: '-10px', marginBottom: '10px', fontSize: '0.9rem', opacity: 0.7, textAlign: 'center' }}>
-                그 사람의 MBTI를 잘 모르겠나요? {' '}
-                <Link href="/quiz?type=target" style={{ color: 'var(--primary)', textDecoration: 'underline' }}>
-                  유추 퀴즈 해보기
-                </Link>
-              </p>
-            )}
+            <p style={{ marginTop: '-10px', marginBottom: '10px', fontSize: '0.9rem', opacity: 0.7, textAlign: 'center' }}>
+              그 사람의 MBTI를 잘 모르겠나요? {' '}
+              <Link
+                href={`/quiz?type=target${targetGender ? `&gender=${targetGender}` : ''}`}
+                style={{ color: 'var(--primary)', textDecoration: 'underline' }}
+              >
+                유추 퀴즈 해보기
+              </Link>
+            </p>
             <button
               className={`btn-primary ${styles.cta}`}
               disabled={!targetGender || !targetMbti}
@@ -77,14 +79,15 @@ function HomeContent() {
               onSelect={setUserMbti}
               label="나의 MBTI를 선택해주세요"
             />
-            {!myMbtiResult && (
-              <p style={{ marginTop: '-10px', fontSize: '0.9rem', opacity: 0.7, textAlign: 'center' }}>
-                자신의 MBTI를 잘 모르겠나요? {' '}
-                <Link href="/quiz?type=user" style={{ color: 'var(--primary)', textDecoration: 'underline' }}>
-                  3분 정밀 퀴즈 해보기
-                </Link>
-              </p>
-            )}
+            <p style={{ marginTop: '-10px', fontSize: '0.9rem', opacity: 0.7, textAlign: 'center' }}>
+              자신의 MBTI를 잘 모르겠나요? {' '}
+              <Link
+                href={`/quiz?type=user${targetGender ? `&gender=${targetGender}` : ''}`}
+                style={{ color: 'var(--primary)', textDecoration: 'underline' }}
+              >
+                3분 정밀 퀴즈 해보기
+              </Link>
+            </p>
             <div className={styles.buttonGroup}>
               <button
                 className={`btn-primary ${styles.cta}`}
