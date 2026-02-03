@@ -10,9 +10,8 @@ MBTI 기반의 맞춤형 연애 가이드 서비스입니다. 상대방의 MBTI�
 단순한 MBTI 특징 나열을 넘어, 타겟팅된 이성과의 소통을 돕기 위해 기획되었습니다. 사용자는 상대방의 정보를 입력하고 맞춤형 가이드와 AI 상담을 통해 전문적인 연애 솔루션을 경험할 수 있습니다.
 
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/ae28d275-4ebc-43e2-a36c-0a4599f6f6a1" width="400">
+  <img src="https://github.com/user-attachments/assets/b1575c90-ee42-4859-80ec-13d2993cbec3" width="400">
 </div>
-
 ### 1️⃣ MBTI 기반 맞춤형 가이드
 - **심층 분석 데이터**: 16가지 성격 유형별 '매력 포인트', '접근 전략', '주의사항' 제공
 - **동적 가이드 생성**: Next.js의 Dynamic Routes를 활용한 사용자 맞춤형 가이드 출력
