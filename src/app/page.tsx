@@ -11,12 +11,13 @@ import Link from "next/link";
 function HomeContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const quizResult = searchParams.get("myMbti");
+  const myMbtiResult = searchParams.get("myMbti");
+  const targetMbtiResult = searchParams.get("targetMbti");
 
-  const [step, setStep] = useState(quizResult ? 2 : 1);
+  const [step, setStep] = useState(myMbtiResult ? 2 : 1);
   const [targetGender, setTargetGender] = useState<string | null>(null);
-  const [targetMbti, setTargetMbti] = useState<string | null>(null);
-  const [userMbti, setUserMbti] = useState<string | null>(quizResult?.toUpperCase() || null);
+  const [targetMbti, setTargetMbti] = useState<string | null>(targetMbtiResult?.toUpperCase() || null);
+  const [userMbti, setUserMbti] = useState<string | null>(myMbtiResult?.toUpperCase() || null);
 
   const handleNextStep = () => {
     if (targetGender && targetMbti) {
@@ -53,6 +54,14 @@ function HomeContent() {
           <>
             <GenderSelector selected={targetGender} onSelect={setTargetGender} />
             <MBTISelector selected={targetMbti} onSelect={setTargetMbti} />
+            {!targetMbtiResult && (
+              <p style={{ marginTop: '-10px', marginBottom: '10px', fontSize: '0.9rem', opacity: 0.7, textAlign: 'center' }}>
+                그 사람의 MBTI를 잘 모르겠나요? {' '}
+                <Link href="/quiz?type=target" style={{ color: 'var(--primary)', textDecoration: 'underline' }}>
+                  유추 퀴즈 해보기
+                </Link>
+              </p>
+            )}
             <button
               className={`btn-primary ${styles.cta}`}
               disabled={!targetGender || !targetMbti}
@@ -68,10 +77,10 @@ function HomeContent() {
               onSelect={setUserMbti}
               label="나의 MBTI를 선택해주세요"
             />
-            {!quizResult && (
-              <p style={{ marginTop: '-10px', fontSize: '0.9rem', opacity: 0.7 }}>
+            {!myMbtiResult && (
+              <p style={{ marginTop: '-10px', fontSize: '0.9rem', opacity: 0.7, textAlign: 'center' }}>
                 자신의 MBTI를 잘 모르겠나요? {' '}
-                <Link href="/quiz" style={{ color: 'var(--primary)', textDecoration: 'underline' }}>
+                <Link href="/quiz?type=user" style={{ color: 'var(--primary)', textDecoration: 'underline' }}>
                   3분 정밀 퀴즈 해보기
                 </Link>
               </p>
