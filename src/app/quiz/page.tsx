@@ -111,7 +111,7 @@ function QuizPageContent() {
         );
     }
 
-    const progress = ((currentStep + 1) / questions.length) * 100;
+    const progress = (currentStep / questions.length) * 100;
 
     // Helper to make question text natural
     const getQuestionText = () => {
