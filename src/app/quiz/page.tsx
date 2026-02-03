@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useState, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import styles from "./quiz.module.css";
 
 const questions = [
@@ -136,4 +136,3 @@ export default function QuizPage() {
         </Suspense>
     );
 }
-```
