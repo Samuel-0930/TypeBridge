@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import * as htmlToImage from "html-to-image";
 import styles from "../app/guide/[mbti]/page.module.css";
 import Link from "next/link";
+import RelationshipTimeline from "./RelationshipTimeline";
 
 interface GuideResultClientProps {
     mbtiUpper: string;
@@ -174,6 +175,13 @@ function GuideContent({
                     </ul>
                 </div>
             </section>
+
+            {/* Render Timeline only if it's NOT for export */}
+            {!isForExport && typeData.timeline && (
+                <div className="animate-slide-up animate-delay-500">
+                    <RelationshipTimeline data={typeData.timeline} />
+                </div>
+            )}
 
             <div className={styles.exportFooter}>
                 <p>https://type-bridge.vercel.app</p>
