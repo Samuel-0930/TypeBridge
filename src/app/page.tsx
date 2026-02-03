@@ -20,6 +20,9 @@ function HomeContent() {
   const [targetMbti, setTargetMbti] = useState<string | null>(targetMbtiResult?.toUpperCase() || null);
   const [userMbti, setUserMbti] = useState<string | null>(myMbtiResult?.toUpperCase() || null);
 
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [loadingText, setLoadingText] = useState("AI가 두 분의 관계를 심층 분석 중입니다...");
+
   // Clear query parameters after initialization to prevent "stuck" URL issues
   useEffect(() => {
     if (myMbtiResult || targetMbtiResult || genderParam) {
@@ -36,13 +39,22 @@ function HomeContent() {
 
   const handleStart = () => {
     if (targetGender && targetMbti && userMbti) {
+      if (isAnalyzing) return;
+
+      setIsAnalyzing(true);
       track("synergy_guide_started", {
         target_gender: targetGender,
         target_mbti: targetMbti,
         user_mbti: userMbti,
       });
 
-      router.push(`/guide/${targetMbti}?gender=${targetGender}&userMbti=${userMbti}`);
+      // Simulation sequence
+      setTimeout(() => setLoadingText("32가지 연애 시나리오 시뮬레이션 중..."), 1000);
+      setTimeout(() => setLoadingText("완료! 결과를 생성합니다 ✨"), 2000);
+
+      setTimeout(() => {
+        router.push(`/guide/${targetMbti}?gender=${targetGender}&userMbti=${userMbti}`);
+      }, 2500);
     } else {
       console.log("Missing state:", { targetGender, targetMbti, userMbti });
     }
@@ -115,7 +127,50 @@ function HomeContent() {
           </>
         )}
       </div>
-    </main>
+
+      {isAnalyzing && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'rgba(255, 255, 255, 0.9)',
+          backdropFilter: 'blur(15px)',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 9999,
+          padding: '24px',
+          textAlign: 'center'
+        }}>
+          <div style={{
+            fontSize: '4rem',
+            marginBottom: '24px',
+            animation: 'pulse 1.5s infinite ease-in-out'
+          }}>
+            💖
+          </div>
+          <h2 className="gradient-text" style={{
+            fontSize: '1.4rem',
+            fontWeight: 700,
+            lineHeight: 1.5,
+            marginBottom: '10px'
+          }}>
+            {loadingText}
+          </h2>
+          <style jsx>{`
+            @keyframes pulse {
+              0% { transform: scale(1); opacity: 1; }
+              50% { transform: scale(1.1); opacity: 0.8; }
+              100% { transform: scale(1); opacity: 1; }
+            }
+          `}</style>
+        </div>
+      )
+      }
+    </main >
   );
 }
 
