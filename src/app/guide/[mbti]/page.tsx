@@ -8,6 +8,21 @@ interface PageProps {
     searchParams: Promise<{ gender?: string; userMbti?: string }>;
 }
 
+export async function generateMetadata({ params }: PageProps) {
+    const { mbti } = await params;
+    const mbtiUpper = mbti.toUpperCase();
+
+    return {
+        title: `${mbtiUpper} 연애 가이드 - 성공 확률 100% 공략법 | TypeBridge`,
+        description: `${mbtiUpper}인 그 사람의 마음을 사로잡는 법! 유혹 포인트부터 주의사항까지, MBTI 맞춤형 연애 전략을 확인하세요.`,
+        openGraph: {
+            title: `${mbtiUpper} 연애 가이드 | TypeBridge`,
+            description: `${mbtiUpper}인 그 사람, 어떻게 공략할까? 지금 바로 TypeBridge에서 확인하세요. 💘`,
+            images: ["/og-image.png"],
+        },
+    };
+}
+
 export default async function GuidePage({ params, searchParams }: PageProps) {
     const { mbti } = await params;
     const { gender, userMbti } = await searchParams;
