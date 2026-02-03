@@ -5,15 +5,17 @@ import styles from "./page.module.css";
 
 interface PageProps {
     params: Promise<{ mbti: string }>;
-    searchParams: Promise<{ gender?: string }>;
+    searchParams: Promise<{ gender?: string; userMbti?: string }>;
 }
 
 export default async function GuidePage({ params, searchParams }: PageProps) {
     const { mbti } = await params;
-    const { gender } = await searchParams;
+    const { gender, userMbti } = await searchParams;
 
     const mbtiUpper = mbti.toUpperCase();
     const typeData = (mbtiData as any)[mbtiUpper];
+    const userMbtiUpper = userMbti?.toUpperCase();
+    const userTypeData = userMbtiUpper ? (mbtiData as any)[userMbtiUpper] : null;
 
     if (!typeData) {
         return (
@@ -44,6 +46,17 @@ export default async function GuidePage({ params, searchParams }: PageProps) {
             </header>
 
             <section className={styles.content}>
+                {userTypeData && (
+                    <div className={`${styles.card} glass-card`} style={{ border: '2px solid var(--primary)' }}>
+                        <h3>✨ 나의 {userMbtiUpper} 강점 활용하기</h3>
+                        <ul>
+                            {userTypeData.user_strengths.map((strength: string, i: number) => (
+                                <li key={i}>{strength}</li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
+
                 <div className={`${styles.card} glass-card`}>
                     <h3>❤️ 이런 사람에게 이끌려요</h3>
                     <ul>
@@ -64,7 +77,11 @@ export default async function GuidePage({ params, searchParams }: PageProps) {
 
                 <div className={`${styles.card} glass-card ${styles.warningCard}`}>
                     <h3>⚠️ 주의할 점</h3>
-                    <p>{guide.warning}</p>
+                    <ul>
+                        {guide.warning.map((item: string, i: number) => (
+                            <li key={i}>{item}</li>
+                        ))}
+                    </ul>
                 </div>
             </section>
 
