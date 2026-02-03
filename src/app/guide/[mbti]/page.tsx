@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: PageProps) {
         openGraph: {
             title: `${mbtiUpper} 연애 가이드 | TypeBridge`,
             description: `${mbtiUpper}인 그 사람, 어떻게 공략할까? 지금 바로 TypeBridge에서 확인하세요. 💘`,
-            images: ["/og-image.png"],
+            images: ["https://type-bridge.vercel.app/og-image.avif"],
         },
     };
 }
@@ -113,7 +113,7 @@ export default async function GuidePage({ params, searchParams }: PageProps) {
                         "@type": "Article",
                         "headline": `${mbtiUpper} 연애 가이드 - TypeBridge`,
                         "description": `${mbtiUpper} 유형을 위한 맞춤형 연애 전략과 시너지 분석`,
-                        "image": "https://type-bridge.vercel.app/og-image.png",
+                        "image": "https://type-bridge.vercel.app/og-image.avif",
                         "author": {
                             "@type": "Organization",
                             "name": "TypeBridge"
@@ -123,7 +123,7 @@ export default async function GuidePage({ params, searchParams }: PageProps) {
                             "name": "TypeBridge",
                             "logo": {
                                 "@type": "ImageObject",
-                                "url": "https://type-bridge.vercel.app/og-image.png"
+                                "url": "https://type-bridge.vercel.app/og-image.avif"
                             }
                         },
                         "mainEntityOfPage": {

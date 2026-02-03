@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     siteName: "TypeBridge",
     images: [
       {
-        url: "https://type-bridge.vercel.app/og-image.png",
+        url: "https://type-bridge.vercel.app/og-image.avif",
         width: 1200,
         height: 630,
         alt: "TypeBridge - MBTI Dating Strategy",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "TypeBridge | MBTI 연애 가이드",
     description: "MBTI로 분석하는 고도의 연애 전략",
-    images: ["https://type-bridge.vercel.app/og-image.png"],
+    images: ["https://type-bridge.vercel.app/og-image.avif"],
   },
 };
 

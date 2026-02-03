@@ -1,18 +1,22 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useState, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { track } from "@vercel/analytics";
 import GenderSelector from "@/components/GenderSelector";
 import MBTISelector from "@/components/MBTISelector";
 import styles from "./page.module.css";
+import Link from "next/link";
 
-export default function Home() {
+function HomeContent() {
   const router = useRouter();
-  const [step, setStep] = useState(1);
+  const searchParams = useSearchParams();
+  const quizResult = searchParams.get("myMbti");
+
+  const [step, setStep] = useState(quizResult ? 2 : 1);
   const [targetGender, setTargetGender] = useState<string | null>(null);
   const [targetMbti, setTargetMbti] = useState<string | null>(null);
-  const [userMbti, setUserMbti] = useState<string | null>(null);
+  const [userMbti, setUserMbti] = useState<string | null>(quizResult?.toUpperCase() || null);
 
   const handleNextStep = () => {
     if (targetGender && targetMbti) {
@@ -23,7 +27,6 @@ export default function Home() {
 
   const handleStart = () => {
     if (targetGender && targetMbti && userMbti) {
-      // Track complete selection trend
       track("synergy_guide_started", {
         target_gender: targetGender,
         target_mbti: targetMbti,
@@ -65,6 +68,14 @@ export default function Home() {
               onSelect={setUserMbti}
               label="나의 MBTI를 선택해주세요"
             />
+            {!quizResult && (
+              <p style={{ marginTop: '-10px', fontSize: '0.9rem', opacity: 0.7 }}>
+                자신의 MBTI를 잘 모르겠나요? {' '}
+                <Link href="/quiz" style={{ color: 'var(--primary)', textDecoration: 'underline' }}>
+                  3분 정밀 퀴즈 해보기
+                </Link>
+              </p>
+            )}
             <div className={styles.buttonGroup}>
               <button
                 className={`btn-primary ${styles.cta}`}
@@ -84,5 +95,13 @@ export default function Home() {
         )}
       </div>
     </main>
+  );
+}
+
+export default function Home() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <HomeContent />
+    </Suspense>
   );
 }
