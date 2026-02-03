@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     siteName: "TypeBridge",
     images: [
       {
-        url: "https://type-bridge.vercel.app/og-image.png",
+        url: "https://type-bridge.vercel.app/og-image.avif",
         width: 1200,
         height: 630,
         alt: "TypeBridge - MBTI Dating Strategy",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "TypeBridge | MBTI 연애 가이드",
     description: "MBTI로 분석하는 고도의 연애 전략",
-    images: ["https://type-bridge.vercel.app/og-image.png"],
+    images: ["https://type-bridge.vercel.app/og-image.avif"],
   },
 };
 
@@ -54,6 +54,23 @@ export default function RootLayout({
         />
       </head>
       <body className={`${outfit.variable} antialiased`}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "name": "TypeBridge",
+              "url": "https://type-bridge.vercel.app",
+              "description": "MBTI 기반 맞춤형 연애 가이드 및 시너지 분석 서비스",
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://type-bridge.vercel.app/guide/{search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            })
+          }}
+        />
         {children}
         <Analytics />
       </body>
