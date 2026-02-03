@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, Suspense } from "react";
+import { useState, Suspense, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { track } from "@vercel/analytics";
 import GenderSelector from "@/components/GenderSelector";
@@ -20,6 +20,13 @@ function HomeContent() {
   const [targetMbti, setTargetMbti] = useState<string | null>(targetMbtiResult?.toUpperCase() || null);
   const [userMbti, setUserMbti] = useState<string | null>(myMbtiResult?.toUpperCase() || null);
 
+  // Clear query parameters after initialization to prevent "stuck" URL issues
+  useEffect(() => {
+    if (myMbtiResult || targetMbtiResult || genderParam) {
+      router.replace("/", { scroll: false });
+    }
+  }, [myMbtiResult, targetMbtiResult, genderParam, router]);
+
   const handleNextStep = () => {
     if (targetGender && targetMbti) {
       setStep(2);
@@ -36,6 +43,8 @@ function HomeContent() {
       });
 
       router.push(`/guide/${targetMbti}?gender=${targetGender}&userMbti=${userMbti}`);
+    } else {
+      console.log("Missing state:", { targetGender, targetMbti, userMbti });
     }
   };
 
@@ -82,7 +91,7 @@ function HomeContent() {
             <p style={{ marginTop: '-10px', fontSize: '0.9rem', opacity: 0.7, textAlign: 'center' }}>
               자신의 MBTI를 잘 모르겠나요? {' '}
               <Link
-                href={`/quiz?type=user${targetGender ? `&gender=${targetGender}` : ''}`}
+                href={`/quiz?type=user${targetGender ? `&gender=${targetGender}` : ''}${targetMbti ? `&targetMbti=${targetMbti}` : ''}`}
                 style={{ color: 'var(--primary)', textDecoration: 'underline' }}
               >
                 3분 정밀 퀴즈 해보기
