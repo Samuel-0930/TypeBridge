@@ -140,13 +140,18 @@
 
 /* Capture Mode Styling (9:16 Aspect Ratio) */
 .captureHidden {
-    position: absolute;
-    left: -9999px;
+    position: fixed;
+    left: 0;
     top: 0;
     width: 450px;
     /* Fixed width for consistent export */
     min-height: 800px;
     /* Approximately 9:16 */
+    z-index: -9999;
+    pointer-events: none;
+    opacity: 1;
+    /* Keep it fully opaque for capture */
+    visibility: visible !important;
     padding: 40px 30px;
     background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
     display: flex;

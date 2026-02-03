@@ -31,14 +31,21 @@ export default function GuideResultClient({
         try {
             setIsExporting(true);
 
-            // Short delay to ensure browser readiness
-            await new Promise((resolve) => setTimeout(resolve, 100));
+            // Allow state update and CSS transitions to settle
+            await new Promise((resolve) => setTimeout(resolve, 500));
 
+            console.log("Starting image capture for 9:16 story...");
             const dataUrl = await htmlToImage.toPng(exportRef.current, {
                 quality: 1,
-                pixelRatio: 3,
+                pixelRatio: 2,
                 backgroundColor: "#fdfbfb",
             });
+
+            if (!dataUrl || dataUrl.length < 1000) {
+                console.error("Generated image seems empty/too small:", dataUrl?.length);
+            } else {
+                console.log("Image captured successfully, size:", dataUrl.length);
+            }
 
             const link = document.createElement("a");
             link.download = `TypeBridge_${mbtiUpper}_Story.png`;
