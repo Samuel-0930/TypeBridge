@@ -45,7 +45,7 @@ export default async function GuidePage({ params, searchParams }: PageProps) {
 
             <section className={styles.content}>
                 <div className={`${styles.card} glass-card`}>
-                    <h3>✨ 상대방의 매력 (이런 점에 끌려요)</h3>
+                    <h3>❤️ 이런 사람에게 이끌려요</h3>
                     <ul>
                         {guide.attraction_points.map((point: string, i: number) => (
                             <li key={i}>{point}</li>
