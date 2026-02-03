@@ -9,7 +9,7 @@ MBTI 기반의 맞춤형 연애 가이드 서비스입니다. 상대방의 MBTI�
 ## 📖 Project Overview
 단순한 MBTI 특징 나열을 넘어, 타겟팅된 이성과의 소통을 돕기 위해 기획되었습니다. 사용자는 상대방의 정보를 입력하고 맞춤형 가이드와 AI 상담을 통해 전문적인 연애 솔루션을 경험할 수 있습니다.
 
-![TypeBridge Preview](https://type-bridge.vercel.app/og-image.png) *(배포된 사이트의 랜딩 페이지 이미지)*
+<img width="758" height="955" alt="스크린샷 2026-02-03 오후 6 32 12" src="https://github.com/user-attachments/assets/4f696efb-23d6-45a3-9ce2-2d99c1ba33f0" />
 
 ### 1️⃣ MBTI 기반 맞춤형 가이드
 - **심층 분석 데이터**: 16가지 성격 유형별 '매력 포인트', '접근 전략', '주의사항' 제공
