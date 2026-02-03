@@ -22,23 +22,22 @@ export default function GuideResultClient({
     userMbtiUpper,
     selectedGender,
 }: GuideResultClientProps) {
-    const cardRef = useRef<HTMLDivElement>(null);
+    const exportRef = useRef<HTMLDivElement>(null);
     const [isExporting, setIsExporting] = useState(false);
 
     const handleExport = async () => {
-        if (!cardRef.current) return;
+        if (!exportRef.current) return;
 
         try {
             setIsExporting(true);
 
-            // Allow state update to propagate and CSS classes to apply
-            await new Promise((resolve) => setTimeout(resolve, 300));
+            // Short delay to ensure browser readiness
+            await new Promise((resolve) => setTimeout(resolve, 100));
 
-            const dataUrl = await htmlToImage.toPng(cardRef.current, {
+            const dataUrl = await htmlToImage.toPng(exportRef.current, {
                 quality: 1,
-                pixelRatio: 3, // Even higher resolution for premium feel
-                backgroundColor: "#f8f0ff",
-                // Skip filtering styles as we want the specialized 'isExporting' styles to apply
+                pixelRatio: 3,
+                backgroundColor: "#fdfbfb",
             });
 
             const link = document.createElement("a");
@@ -53,68 +52,77 @@ export default function GuideResultClient({
         }
     };
 
+    const GuideContent = ({ isForExport = false }: { isForExport?: boolean }) => (
+        <>
+            <div className={styles.exportHeader}>
+                <span className={styles.brand}>TypeBridge</span>
+                <span className={styles.tagline}>상대방의 MBTI로 읽는 연애 전략</span>
+            </div>
+
+            <header className={styles.header}>
+                <h1 className="gradient-text">{mbtiUpper} 연애 가이드</h1>
+                <p className={styles.subtitle}>{typeData.name}를 위한 맞춤 조언</p>
+                <div className={styles.genderBadge}>
+                    {selectedGender === "male" ? "♂ 남성 타겟" : "♀ 여성 타겟"}
+                </div>
+            </header>
+
+            <section className={styles.content}>
+                {userTypeData && (
+                    <div className={`${styles.card} glass-card`} style={{ border: '2px solid var(--primary)' }}>
+                        <h3>✨ 나의 {userMbtiUpper} 강점 활용하기</h3>
+                        <ul>
+                            {userTypeData.user_strengths.map((strength: string, i: number) => (
+                                <li key={i}>{strength}</li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
+
+                <div className={`${styles.card} glass-card`}>
+                    <h3>❤️ 이런 사람에게 이끌려요</h3>
+                    <ul>
+                        {guide.attraction_points.map((point: string, i: number) => (
+                            <li key={i}>{point}</li>
+                        ))}
+                    </ul>
+                </div>
+
+                <div className={`${styles.card} glass-card`}>
+                    <h3>💡 공략 방법</h3>
+                    <ul>
+                        {guide.how_to_approach.map((tip: string, i: number) => (
+                            <li key={i}>{tip}</li>
+                        ))}
+                    </ul>
+                </div>
+
+                <div className={`${styles.card} glass-card ${styles.warningCard}`}>
+                    <h3>⚠️ 주의할 점</h3>
+                    <ul>
+                        {guide.warning.map((item: string, i: number) => (
+                            <li key={item}>{item}</li>
+                        ))}
+                    </ul>
+                </div>
+            </section>
+
+            <div className={styles.exportFooter}>
+                <p>https://type-bridge.vercel.app</p>
+            </div>
+        </>
+    );
+
     return (
         <div className={styles.guideWrapper}>
-            <div
-                ref={cardRef}
-                className={`${styles.captureArea} ${isExporting ? styles.isExporting : ""}`}
-            >
-                <div className={styles.exportHeader}>
-                    <span className={styles.brand}>TypeBridge</span>
-                    <span className={styles.tagline}>상대방의 MBTI로 읽는 연애 전략</span>
-                </div>
+            {/* Hidden capture area (Off-screen) */}
+            <div ref={exportRef} className={styles.captureHidden}>
+                <GuideContent isForExport={true} />
+            </div>
 
-                <header className={styles.header}>
-                    <h1 className="gradient-text">{mbtiUpper} 연애 가이드</h1>
-                    <p className={styles.subtitle}>{typeData.name}를 위한 맞춤 조언</p>
-                    <div className={styles.genderBadge}>
-                        {selectedGender === "male" ? "♂ 남성 타겟" : "♀ 여성 타겟"}
-                    </div>
-                </header>
-
-                <section className={styles.content}>
-                    {userTypeData && (
-                        <div className={`${styles.card} glass-card`} style={{ border: '2px solid var(--primary)' }}>
-                            <h3>✨ 나의 {userMbtiUpper} 강점 활용하기</h3>
-                            <ul>
-                                {userTypeData.user_strengths.map((strength: string, i: number) => (
-                                    <li key={i}>{strength}</li>
-                                ))}
-                            </ul>
-                        </div>
-                    )}
-
-                    <div className={`${styles.card} glass-card`}>
-                        <h3>❤️ 이런 사람에게 이끌려요</h3>
-                        <ul>
-                            {guide.attraction_points.map((point: string, i: number) => (
-                                <li key={i}>{point}</li>
-                            ))}
-                        </ul>
-                    </div>
-
-                    <div className={`${styles.card} glass-card`}>
-                        <h3>💡 공략 방법</h3>
-                        <ul>
-                            {guide.how_to_approach.map((tip: string, i: number) => (
-                                <li key={i}>{tip}</li>
-                            ))}
-                        </ul>
-                    </div>
-
-                    <div className={`${styles.card} glass-card ${styles.warningCard}`}>
-                        <h3>⚠️ 주의할 점</h3>
-                        <ul>
-                            {guide.warning.map((item: string, i: number) => (
-                                <li key={i}>{item}</li>
-                            ))}
-                        </ul>
-                    </div>
-                </section>
-
-                <div className={styles.exportFooter}>
-                    <p>https://type-bridge.vercel.app</p>
-                </div>
+            {/* Visible UI */}
+            <div className={styles.captureArea}>
+                <GuideContent />
             </div>
 
             <div className={styles.actions}>
