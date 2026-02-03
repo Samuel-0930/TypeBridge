@@ -1,0 +1,22 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="typebridge-grad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ff477e"/>
+      <stop offset="1" stop-color="#7012ce"/>
+    </linearGradient>
+  </defs>
+  <!-- Heart Shape (Bold) -->
+  <path 
+    d="M16 28.2C15.5 28.2 15.0 28.0 14.6 27.6L13.1 26.2C7.5 21.0 3 16.8 3 11.8C3 7.7 6.2 4.5 10.3 4.5C12.6 4.5 14.8 5.6 16 7.3C17.2 5.6 19.4 4.5 21.7 4.5C25.8 4.5 29 7.7 29 11.8C29 16.8 24.5 21.0 18.9 26.2L17.4 27.6C17.0 28.0 16.5 28.2 16 28.2Z" 
+    stroke="url(#typebridge-grad)" 
+    stroke-width="3" 
+    stroke-linejoin="round"
+  />
+  <!-- Bridge Line -->
+  <path 
+    d="M1 18.5C6 14.5 26 14.5 31 18.5" 
+    stroke="url(#typebridge-grad)" 
+    stroke-width="3" 
+    stroke-linecap="round"
+  />
+</svg>
