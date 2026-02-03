@@ -67,16 +67,16 @@ export default function GuideResultClient({
             </div>
 
             <header className={styles.header}>
-                <h1 className="gradient-text">{mbtiUpper} 연애 가이드</h1>
-                <p className={styles.subtitle}>{typeData.name}를 위한 맞춤 조언</p>
-                <div className={styles.genderBadge}>
+                <h1 className="gradient-text animate-slide-up">{mbtiUpper} 연애 가이드</h1>
+                <p className={`${styles.subtitle} animate-slide-up animate-delay-100`}>{typeData.name}를 위한 맞춤 조언</p>
+                <div className={`${styles.genderBadge} animate-fade-in animate-delay-200`}>
                     {selectedGender === "male" ? "♂ 남성 타겟" : "♀ 여성 타겟"}
                 </div>
             </header>
 
             <section className={styles.content}>
                 {userTypeData && (
-                    <div className={`${styles.card} glass-card`} style={{ border: '2px solid var(--primary)' }}>
+                    <div className={`${styles.card} glass-card animate-slide-up animate-delay-100`} style={{ border: '2px solid var(--primary)' }}>
                         <h3>✨ 나의 {userMbtiUpper} 강점 활용하기</h3>
                         <ul>
                             {userTypeData.user_strengths.map((strength: string, i: number) => (
@@ -86,7 +86,7 @@ export default function GuideResultClient({
                     </div>
                 )}
 
-                <div className={`${styles.card} glass-card`}>
+                <div className={`${styles.card} glass-card animate-slide-up animate-delay-200`}>
                     <h3>❤️ 이런 사람에게 이끌려요</h3>
                     <ul>
                         {guide.attraction_points.map((point: string, i: number) => (
@@ -95,7 +95,7 @@ export default function GuideResultClient({
                     </ul>
                 </div>
 
-                <div className={`${styles.card} glass-card`}>
+                <div className={`${styles.card} glass-card animate-slide-up animate-delay-300`}>
                     <h3>💡 공략 방법</h3>
                     <ul>
                         {guide.how_to_approach.map((tip: string, i: number) => (
@@ -104,7 +104,7 @@ export default function GuideResultClient({
                     </ul>
                 </div>
 
-                <div className={`${styles.card} glass-card ${styles.warningCard}`}>
+                <div className={`${styles.card} glass-card ${styles.warningCard} animate-slide-up animate-delay-400`}>
                     <h3>⚠️ 주의할 점</h3>
                     <ul>
                         {guide.warning.map((item: string, i: number) => (

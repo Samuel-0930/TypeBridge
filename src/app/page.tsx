@@ -51,15 +51,15 @@ function HomeContent() {
   return (
     <main className={styles.container}>
       <section className={styles.hero}>
-        <h1 className="gradient-text">TypeBridge</h1>
-        <p className={styles.subtitle}>
+        <h1 className="gradient-text animate-slide-up">TypeBridge</h1>
+        <p className={`${styles.subtitle} animate-slide-up animate-delay-100`}>
           {step === 1
             ? "그 사람의 속마음, MBTI로 꿰뚫어보기 💘"
             : "나의 MBTI도 알려주세요! 더 정확한 공략법을 드릴게요 ✨"}
         </p>
       </section>
 
-      <div className={styles.selectors}>
+      <div className={`${styles.selectors} animate-fade-in animate-delay-200`}>
         {step === 1 ? (
           <>
             <GenderSelector selected={targetGender} onSelect={setTargetGender} />
